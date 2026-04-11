@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd artifacts/rise-up-church && npm run build",
+  "outputDirectory": "artifacts/rise-up-church/dist/public",
+  "env": {
+    "PORT": "3000",
+    "BASE_PATH": "/"
+  }
+}

@@ -1,0 +1,15 @@
+.git
+.github
+.gitignore
+README.md
+node_modules
+dist
+build
+*.log
+.DS_Store
+.env.local
+.env.*.local
+artifacts/api-server
+artifacts/mockup-sandbox
+scripts
+lib
