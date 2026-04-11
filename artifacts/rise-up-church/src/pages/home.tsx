@@ -1,12 +1,23 @@
 import { Link } from "wouter";
+import { useState, useEffect } from "react";
 import { FadeIn } from "@/components/fade-in";
 import { BlogCard } from "@/components/blog-card";
 import { Send, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { blogPosts } from "@/data/blog-posts";
+import { loadAllBlogPosts, BlogPost } from "@/lib/blog-loader";
 
 export function Home() {
   const { toast } = useToast();
+  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    loadAllBlogPosts().then(posts => {
+      const sorted = [...posts]
+        .sort((a, b) => new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime())
+        .slice(0, 3);
+      setRecentPosts(sorted);
+    });
+  }, []);
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,10 +28,6 @@ export function Home() {
     });
     (e.target as HTMLFormElement).reset();
   };
-
-  const recentPosts = [...blogPosts]
-    .sort((a, b) => b.isoDate.localeCompare(a.isoDate))
-    .slice(0, 3);
 
   return (
     <div className="w-full">

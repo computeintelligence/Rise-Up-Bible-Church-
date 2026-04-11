@@ -1,9 +1,18 @@
 import { FadeIn } from "@/components/fade-in";
 import { BlogCard } from "@/components/blog-card";
-import { blogPosts } from "@/data/blog-posts";
+import { useEffect, useState } from "react";
+import { loadAllBlogPosts, BlogPost } from "@/lib/blog-loader";
 
 export function Blog() {
-  const sorted = [...blogPosts].sort((a, b) => b.isoDate.localeCompare(a.isoDate));
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadAllBlogPosts().then(posts => {
+      setPosts(posts.sort((a, b) => new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()));
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <div className="w-full bg-background min-h-screen">
@@ -22,21 +31,25 @@ export function Blog() {
 
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sorted.map((post, i) => (
-              <FadeIn key={post.slug} direction="up" delay={Math.min(i * 0.05, 0.3)}>
-                <BlogCard
-                  title={post.title}
-                  subtitle={post.subtitle}
-                  author={post.author}
-                  date={post.date}
-                  readTime={post.readTime}
-                  href={`/${post.slug}`}
-                  imageSrc={post.imageSrc}
-                />
-              </FadeIn>
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center text-muted-foreground">Loading blog posts...</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map((post, i) => (
+                <FadeIn key={post.slug} direction="up" delay={Math.min(i * 0.05, 0.3)}>
+                  <BlogCard
+                    title={post.title}
+                    subtitle={post.subtitle}
+                    author={post.author}
+                    date={post.date}
+                    readTime={post.readTime}
+                    href={`/${post.slug}`}
+                    imageSrc={post.imageSrc}
+                  />
+                </FadeIn>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>
