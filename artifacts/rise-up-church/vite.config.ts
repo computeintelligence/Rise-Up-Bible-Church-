@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 // Use environment variables if available, otherwise use defaults for builds
@@ -17,7 +16,6 @@ export default defineConfig({
   base: basePath,
   plugins: [
     react(),
-    tailwindcss(),
   ],
   resolve: {
     alias: {
@@ -30,6 +28,13 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        chunkFileNames: "assets/[name]-[hash].js",
+        entryFileNames: "assets/[name]-[hash].js",
+      },
+    },
   },
   server: {
     port,
