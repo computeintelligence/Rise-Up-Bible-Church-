@@ -23,6 +23,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
     },
+    extensions: [".ts", ".tsx", ".mts", ".mtsx", ".js", ".jsx", ".json"],
     dedupe: ["react", "react-dom"],
   },
   root: path.resolve(import.meta.dirname),
