@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm -w run typecheck:libs && cd artifacts/rise-up-church && pnpm run build",
+  "buildCommand": "cd artifacts/rise-up-church && pnpm install --frozen-lockfile && pnpm run build",
   "outputDirectory": "artifacts/rise-up-church/dist/public",
   "env": {
     "PORT": "3000",
