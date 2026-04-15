@@ -1,6 +1,7 @@
 {
   "name": "rise-up-bible-church",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.23.0",
   "description": "Rise-Up Bible Church Website",
   "private": true,
   "scripts": {
