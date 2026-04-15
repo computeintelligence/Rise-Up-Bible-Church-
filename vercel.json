@@ -1,7 +1,7 @@
 {
   "buildCommand": "cd artifacts/rise-up-church && pnpm install && pnpm run build",
   "outputDirectory": "artifacts/rise-up-church/dist/public",
-  "installCommand": "npm install -g pnpm && pnpm install --frozen-lockfile",
+  "installCommand": "npm install -g pnpm@10 && pnpm install --frozen-lockfile",
   "env": {
     "PORT": "3000",
     "BASE_PATH": "/"
